@@ -538,7 +538,64 @@ class Give_MetaBox_Form_Data {
 					),
 				]
 			),
-
+			'form_fund_raiser'    => apply_filters(
+				'give_forms_fundraiser',
+				[
+					'id'        => 'forms_fundraiser',
+					'title'     => __( 'Fund Raiser', 'give' ),
+					'icon-html' => '<i class="far fa-user"></i>',
+					'fields'    => apply_filters(
+						'give_forms_fundraiser_metabox_fields',
+						
+						[
+							// Donation Option
+							[
+								'name'        => __( 'Fundraiser', 'give' ),
+								'description' => __( 'Select Fundraiser for this Campaign', 'give' ),
+								'id'          => $prefix . 'fundraiser',
+								'type'        => 'select',
+								'options'     => apply_filters(
+									'give_forms_fundraiser_select',
+									
+										$this->getFundraiserUser()
+									
+									
+								),
+								'default'     => 'global',
+							
+								
+							],
+	
+						],
+						$post_id
+					),
+				]
+			),
+			'form_documents'    => apply_filters(
+				'give_documents',
+				[
+					'id'        => 'forms_documents',
+					'title'     => __( 'Documents', 'give' ),
+					'icon-html' => '<i class="far fa-user"></i>',
+					'fields'    => apply_filters(
+						'give_forms_documents_metabox_fields',
+						
+						[
+							// Donation Option
+							[
+								'name'        => __( 'Documents', 'give' ),
+								'description' => __( 'Select Documents for this Campaign', 'give' ),
+								'id'          => $prefix . 'documents',
+								'type'        => 'media',
+							
+								
+							],
+	
+						],
+						$post_id
+					),
+				]
+			),
 			/**
 			 * Terms & Conditions
 			 */
@@ -1195,7 +1252,15 @@ class Give_MetaBox_Form_Data {
 
 		return $field_id;
 	}
-
+	public function getFundraiserUser()
+	{
+		$fundraiser_users = ['Select fundraiser'];
+		foreach ( get_users('role=give_fundraiser') as $user ) {
+			$fundraiser_users[$user->ID] = $user->display_name . ' (' . $user->user_email . ')';
+		}
+		
+		return $fundraiser_users;
+	}
 	/**
 	 * Get fields ID.
 	 *

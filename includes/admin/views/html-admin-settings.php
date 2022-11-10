@@ -41,7 +41,6 @@ if ( ! empty( $tabs ) && array_key_exists( give_get_current_setting_tab(), $tabs
 		)
 	);
 	?>
-
 	<div class="wrap give-settings-page <?php echo esc_html( $wrapper_class ); ?>">
 
 		<?php echo $form_open_tag; ?>

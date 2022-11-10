@@ -27,12 +27,20 @@ function __give_insert_donor_donation_comment( $donation_id, $donation_data ) {
 			$comment_meta
 		);
 	}
+<<<<<<< HEAD
+=======
+
+	give_update_meta( $donation_id, '_give_anonymous_donation', $is_anonymous_donation );
+>>>>>>> old-giv-plugin
 }
 
 add_action( 'give_insert_payment', '__give_insert_donor_donation_comment', 10, 2 );
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> old-giv-plugin
 /**
  * Validate donor comment
  *
@@ -90,6 +98,7 @@ function __give_remove_donor_donation_comment( $donation_id ) {
 }
 
 add_action( 'give_payment_deleted', '__give_remove_donor_donation_comment', 10 );
+<<<<<<< HEAD
 
 
 /**
@@ -114,3 +123,5 @@ function giveUpdateAnonymousDonationForLegacyGateways(int $donationId)
 }
 
 add_action('give_insert_payment', 'giveUpdateAnonymousDonationForLegacyGateways');
+=======
+>>>>>>> old-giv-plugin

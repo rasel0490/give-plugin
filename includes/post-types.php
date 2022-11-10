@@ -77,6 +77,7 @@ function give_setup_post_types() {
 		'excerpt',
 		'revisions',
 		'author',
+		'editor'
 	];
 
 	// Has the user disabled the excerpt?
@@ -99,6 +100,7 @@ function give_setup_post_types() {
 		'query_var'       => true,
 		'rewrite'         => $give_forms_rewrite,
 		'map_meta_cap'    => true,
+		'taxonomies' => array('category'),
 		'capability_type' => 'give_form',
 		'has_archive'     => $give_forms_archives,
 		'menu_icon'       => 'dashicons-give',

@@ -22,6 +22,70 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return string Donation form.
  * @since 1.0
  */
+
+
+function customGetFormGoalStats(Give_Donate_Form $form)
+    {
+        $goalStats = give_goal_progress_stats($form->get_ID());
+        $raisedRaw = $form->get_earnings();
+
+        // Setup default raised value
+        $raised = give_currency_filter(
+            give_format_amount(
+                $raisedRaw,
+                [
+                    'sanitize' => false,
+                    'decimal'  => false,
+                ]
+            )
+        );
+
+        // Setup default count value
+        $count = $form->get_sales();
+
+        // Setup default count label
+        $countLabel = _n('donation', 'donations', $count, 'give');
+
+        // Setup default goal value
+        $goal = give_currency_filter(
+            give_format_amount(
+                $form->get_goal(),
+                [
+                    'sanitize' => false,
+                    'decimal'  => false,
+                ]
+            )
+        );
+
+        $stats = [
+            'raised'     => $raised,
+            'raisedRaw'  => $raisedRaw,
+            'progress'   => $goalStats[ 'progress' ],
+            'count'      => $count,
+            'countLabel' => $countLabel,
+            'goal'       => $goal,
+            'goalRaw'    => $goalStats[ 'raw_goal' ],
+        ];
+
+        switch ($goalStats[ 'format' ]) {
+            case 'donation':
+                return array_merge($stats, [
+                    'count' => $goalStats[ 'actual' ],
+                    'goal'  => $goalStats[ 'goal' ],
+                ]);
+
+            case 'donors':
+                return array_merge($stats, [
+                    'count'      => $goalStats[ 'actual' ],
+                    'countLabel' => _n('donor', 'donors', $count, 'give'),
+                    'goal'       => $goalStats[ 'goal' ],
+                ]);
+
+            default:
+                return $stats;
+        }
+    }
+
 function give_get_donation_form( $args = [] ) {
 
 	global $post;
@@ -807,6 +871,14 @@ function give_user_info_fields( $form_id ) {
 					<span class="give-required-indicator">*</span>
 				<?php endif ?>
 				<?php echo Give()->tooltips->render_help( __( 'First Name is used to personalize your donation record.', 'give' ) ); ?>
+			
+			</label>
+			<label class="give-label" for="give-last">
+				<?php esc_attr_e( 'Last Name', 'give' ); ?>
+				<?php if ( give_field_is_required( 'give_last', $form_id ) ) : ?>
+					<span class="give-required-indicator">*</span>
+				<?php endif ?>
+				<?php echo Give()->tooltips->render_help( __( 'Last Name is used to personalize your donation record.', 'give' ) ); ?>
 			</label>
 			<input
 				class="give-input required"

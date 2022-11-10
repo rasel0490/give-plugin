@@ -702,7 +702,11 @@ function give_save_import_donation_to_db( $raw_key, $row_data, $main_key = [], $
 
 				// check for duplicate donor by donor id
 				if ( ! empty( $csv_data['donor_id'] ) && ! empty( $data['donor_id'] ) && $csv_data['donor_id'] === $data['donor_id'] ) {
+<<<<<<< HEAD
 					$donor = array_search( (int) $data['donor_id'], array_column( $donors_list, 'id' ) );
+=======
+					$donor = array_search( (int) $data['donor_id'], array_column( 'id', $donors_list ) );
+>>>>>>> old-giv-plugin
 					if ( ! empty( $donor ) ) {
 						$dry_run_duplicate_donor = true;
 					}
@@ -806,7 +810,11 @@ function give_save_import_donation_to_db( $raw_key, $row_data, $main_key = [], $
 		],
 		'gateway'         => ( ! empty( $data['gateway'] ) ? strtolower( $data['gateway'] ) : 'manual' ),
 		'give_form_title' => ( ! empty( $data['form_title'] ) ? $data['form_title'] : ( method_exists( $form, 'get_name' ) ? $form->get_name() : '' ) ),
+<<<<<<< HEAD
 		'give_form_id'    => ( ! empty( $form ) && method_exists( $form, 'get_ID' ) ) ? $form->get_ID() : '',
+=======
+		'give_form_id'    => method_exists( $form, 'get_ID' ) ? $form->get_ID() : '',
+>>>>>>> old-giv-plugin
 		'give_price_id'   => $price_id,
 		'purchase_key'    => strtolower( md5( uniqid() ) ),
 		'user_email'      => $data['email'],
@@ -1120,5 +1128,9 @@ function give_import_page_url( $parameter = [] ) {
 	];
 	$import_query_arg  = wp_parse_args( $parameter, $defalut_query_arg );
 
+<<<<<<< HEAD
 	return esc_url_raw( add_query_arg( $import_query_arg, admin_url( 'edit.php' ) ) );
+=======
+	return add_query_arg( $import_query_arg, admin_url( 'edit.php' ) );
+>>>>>>> old-giv-plugin
 }

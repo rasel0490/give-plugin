@@ -28,14 +28,22 @@ export function getFormOptions( forms ) {
 			( { id, title: { rendered: title } } ) => {
 				return {
 					value: id,
+<<<<<<< HEAD
 					label: title === '' ? `${ id } : ${ __( 'No form title', 'give' ) }` : title,
+=======
+					label: title === '' ? `${ id } : ${ __( 'No form title' ) }` : title,
+>>>>>>> old-giv-plugin
 				};
 			}
 		);
 	}
 
 	// Add Default option
+<<<<<<< HEAD
 	formOptions.unshift( { value: '0', label: __( '-- Select Form --', 'give' ) } );
+=======
+	formOptions.unshift( { value: '0', label: __( '-- Select Form --' ) } );
+>>>>>>> old-giv-plugin
 
 	return formOptions;
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: Give - Donation Plugin
  * Plugin URI: https://givewp.com
@@ -53,6 +52,8 @@ use Give\DonorDashboards\ServiceProvider as DonorDashboardsServiceProvider;
 use Give\DonorDashboards\Tabs\TabsRegister;
 use Give\Donors\Repositories\DonorRepositoryProxy;
 use Give\Donors\ServiceProvider as DonorsServiceProvider;
+use Give\DonationSummary\ServiceProvider as DonationSummaryServiceProvider;
+use Give\DonorDashboards\ServiceProvider as DonorDashboardsServiceProvider;
 use Give\Form\LegacyConsumer\ServiceProvider as FormLegacyConsumerServiceProvider;
 use Give\Form\Templates;
 use Give\Framework\Exceptions\UncaughtExceptionLogger;
@@ -61,6 +62,7 @@ use Give\Framework\Database\ServiceProvider as DatabaseServiceProvider;
 use Give\Framework\PaymentGateways\PaymentGatewayRegister;
 use Give\Framework\WordPressShims\ServiceProvider as WordPressShimsServiceProvider;
 use Give\LegacySubscriptions\ServiceProvider as LegacySubscriptionsServiceProvider;
+use Give\InPluginUpsells\ServiceProvider as InPluginUpsellsServiceProvider;
 use Give\License\LicenseServiceProvider;
 use Give\Log\LogServiceProvider;
 use Give\MigrationLog\MigrationLogServiceProvider;
@@ -77,6 +79,7 @@ use Give\ServiceProviders\Routes;
 use Give\ServiceProviders\ServiceProvider;
 use Give\Subscriptions\Repositories\SubscriptionRepository;
 use Give\Subscriptions\ServiceProvider as SubscriptionServiceProvider;
+use Give\Shims\ShimsServiceProvider;
 use Give\TestData\ServiceProvider as TestDataServiceProvider;
 use Give\Tracking\TrackingServiceProvider;
 
@@ -122,6 +125,31 @@ if (!defined('ABSPATH')) {
  * @property-read Profile $donorDashboard
  * @property-read TabsRegister $donorDashboardTabs
  * @property-read Give_Recurring_DB_Subscription_Meta $subscription_meta
+ * @since 2.8.0 build in a service container
+ * @since 1.0
+ *
+ * @property-read Give_API                        $api
+ * @property-read Give_Async_Process              $async_process
+ * @property-read Give_Comment                    $comment
+ * @property-read Give_DB_Donors                  $donors
+ * @property-read Give_DB_Donor_Meta              $donor_meta
+ * @property-read Give_Emails                     $emails
+ * @property-read Give_Email_Template_Tags        $email_tags
+ * @property-read Give_DB_Form_Meta               $form_meta
+ * @property-read Give_Admin_Settings             $give_settings
+ * @property-read Give_HTML_Elements              $html
+ * @property-read Give_Logging                    $logs
+ * @property-read Give_Notices                    $notices
+ * @property-read Give_DB_Payment_Meta            $payment_meta
+ * @property-read Give_Roles                      $roles
+ * @property-read FormRoute                       $routeForm
+ * @property-read Templates                       $templates
+ * @property-read Give_Scripts                    $scripts
+ * @property-read Give_DB_Sequential_Ordering     $sequential_donation_db
+ * @property-read Give_Sequential_Donation_Number $seq_donation_number
+ * @property-read Give_Session                    $session
+ * @property-read Give_DB_Sessions                $session_db
+ * @property-read Give_Tooltips                   $tooltips
  *
  * @mixin Container
  */
@@ -180,11 +208,13 @@ final class Give
         RevenueServiceProvider::class,
         MultiFormGoalsServiceProvider::class,
         DonorDashboardsServiceProvider::class,
+        InPluginUpsellsServiceProvider::class,
         TrackingServiceProvider::class,
         TestDataServiceProvider::class,
         MigrationLogServiceProvider::class,
         LogServiceProvider::class,
         FormLegacyConsumerServiceProvider::class,
+        ShimsServiceProvider::class,
         LicenseServiceProvider::class,
         Give\Email\ServiceProvider::class,
         DonationSummaryServiceProvider::class,
@@ -227,6 +257,18 @@ final class Give
      */
     public function boot()
     {
+        // PHP version
+        if (!defined('GIVE_REQUIRED_PHP_VERSION')) {
+            define('GIVE_REQUIRED_PHP_VERSION', '5.6.0');
+        }
+
+        // Bailout: Need minimum php version to load plugin.
+        if (function_exists('phpversion') && version_compare(GIVE_REQUIRED_PHP_VERSION, phpversion(), '>')) {
+            add_action('admin_notices', [$this, 'minimum_phpversion_notice']);
+
+            return;
+        }
+
         $this->setup_constants();
 
         // Add compatibility notice for recurring and stripe support with Give 2.5.0.

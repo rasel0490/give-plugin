@@ -809,7 +809,11 @@ function give_parse_report_dates( $data ) {
 	$tab  = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'earnings';
 	$id   = isset( $_GET['form-id'] ) ? $_GET['form-id'] : null;
 
+<<<<<<< HEAD
 	wp_redirect( esc_url_raw(add_query_arg( $dates, admin_url( 'edit.php?post_type=give_forms&page=give-reports&legacy=true&tab=' . esc_attr( $tab ) . '&view=' . esc_attr( $view ) . '&form-id=' . absint( $id ) ) ) ) );
+=======
+	wp_redirect( add_query_arg( $dates, admin_url( 'edit.php?post_type=give_forms&page=give-reports&legacy=true&tab=' . esc_attr( $tab ) . '&view=' . esc_attr( $view ) . '&form-id=' . absint( $id ) ) ) );
+>>>>>>> old-giv-plugin
 	give_die();
 }
 

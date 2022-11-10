@@ -36,6 +36,7 @@ function give_form_columns( $give_form_columns ) {
 		'form_category' => __( 'Categories', 'give' ),
 		'form_tag'      => __( 'Tags', 'give' ),
 		'price'         => __( 'Amount', 'give' ),
+		'visibility'         => __( 'User Requested Visibility', 'give' ),
 		'goal'          => __( 'Goal', 'give' ),
 		'donations'     => __( 'Donations', 'give' ),
 		'earnings'      => __( 'Revenue', 'give' ),
@@ -67,8 +68,15 @@ add_filter( 'manage_edit-give_forms_columns', 'give_form_columns' );
  * @return void
  */
 function give_render_form_columns( $column_name, $post_id ) {
+<<<<<<< HEAD
 	if ( get_post_type( $post_id ) == 'give_forms' ) {
 
+=======
+		
+	$campaign_id = give_get_meta( $post_id, '_give_campaign_id', true );
+	if ( get_post_type( $post_id ) == 'give_forms' ) {
+		
+>>>>>>> old-giv-plugin
 		switch ( $column_name ) {
 			case 'form_category':
 				echo get_the_term_list( $post_id, 'give_forms_category', '', ', ', '' );
@@ -76,6 +84,18 @@ function give_render_form_columns( $column_name, $post_id ) {
 			case 'form_tag':
 				echo get_the_term_list( $post_id, 'give_forms_tag', '', ', ', '' );
 				break;
+<<<<<<< HEAD
+=======
+			case 'visibility':
+				if(get_post_meta( $campaign_id, 'privatePublicCampaign', true  )){
+									echo get_post_meta( $campaign_id, 'privatePublicCampaign', true  ).'['.$post_id.']';
+
+				}else{
+					echo 'None';
+				}
+				
+				break;
+>>>>>>> old-giv-plugin
 			case 'price':
 				if ( give_has_variable_prices( $post_id ) ) {
 					echo give_price_range( $post_id );

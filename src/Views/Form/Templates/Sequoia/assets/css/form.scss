@@ -106,12 +106,10 @@ p {
     font-size: 30px;
     padding-top: 15px;
     padding-bottom: 15px;
-
     &:focus {
         outline: none;
         box-shadow: 0 0 8px #28c77b;
     }
-
     &:hover {
         filter: brightness(1.2);
     }
@@ -897,7 +895,6 @@ p {
         margin-right: 20px;
         margin-left: 20px;
     }
-
     .heading {
         padding: 39px 3px 0;
         font-size: 16px;
@@ -909,14 +906,12 @@ p {
             padding: 20px 3px 0;
         }
     }
-
     .subheading {
         @media screen and (max-width: $break-phone) {
             padding-left: 20px !important;
             padding-right: 20px !important;
         }
     }
-
     .give_notices {
         width: 100%;
         order: 1;
@@ -955,7 +950,6 @@ p {
             display: none;
         }
     }
-
     #give-payment-mode-select {
         .gateway-stripe-google_pay,
         .gateway-stripe-apple_pay {
@@ -965,7 +959,6 @@ p {
         legend {
             display: none;
         }
-
         ul {
             @include before-after-content-none;
             display: grid;
@@ -1129,7 +1122,6 @@ fieldset {
     legend {
         display: none;
     }
-
     p {
         position: relative;
 

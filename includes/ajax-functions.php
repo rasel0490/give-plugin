@@ -792,7 +792,11 @@ function give_modal_ajax_url( $args = [] ) {
 		]
 	);
 
+<<<<<<< HEAD
 	return esc_url_raw( add_query_arg( $args, admin_url( '/admin-ajax.php' ) ) );
+=======
+	return add_query_arg( $args, admin_url( '/admin-ajax.php' ) );
+>>>>>>> old-giv-plugin
 }
 
 

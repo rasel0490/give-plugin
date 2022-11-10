@@ -1243,9 +1243,15 @@ function give_v189_upgrades() {
 			"
 					DELETE FROM $wpdb->usermeta
 					WHERE meta_key
+<<<<<<< HEAD
 					LIKE '%s'
 					",
 			'%_give_hide_license_notices_permanently%'
+=======
+					LIKE '%%%s%%'
+					",
+			'_give_hide_license_notices_permanently'
+>>>>>>> old-giv-plugin
 		)
 	);
 

@@ -26,7 +26,6 @@ if ( post_password_required() ) {
 	return;
 }
 ?>
-
 	<div id="give-form-<?php the_ID(); ?>-content" <?php post_class(); ?>>
 
 		<?php

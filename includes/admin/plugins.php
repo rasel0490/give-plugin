@@ -570,6 +570,12 @@ function give_deactivation_popup() {
 				</section>
 			</p>
 		</div>
+		<?php
+		$current_user       = wp_get_current_user();
+		$current_user_email = $current_user->user_email;
+		?>
+		<input type="hidden" name="current-user-email" value="<?php echo $current_user_email; ?>">
+		<input type="hidden" name="current-site-url" value="<?php echo esc_url( get_bloginfo( 'url' ) ); ?>">
 		<input type="hidden" name="give-export-class" value="Give_Tools_Reset_Stats">
 		<?php wp_nonce_field( 'give_ajax_export', 'give_ajax_export' ); ?>
 	</form>

@@ -359,7 +359,6 @@ $base_url       = admin_url( 'edit.php?post_type=give_forms&page=give-payment-hi
 												<a href="<?php echo $purchase_url; ?>"><?php _e( 'View all donations for this donor &raquo;', 'give' ); ?></a>
 											</p>
 										</div>
-
 									</div>
 									<!-- /.column-container -->
 

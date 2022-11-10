@@ -115,6 +115,17 @@ class Give_Roles {
 				'read' => true,
 			)
 		);
+		add_role(
+			'give_fundraiser',
+			__( 'GiveWP Fundraiser', 'give' ),
+			array(
+				'read'         => true,
+				'edit_posts'   => true,
+				'edit_pages'   => true,
+				'upload_files' => true,
+				'delete_posts' => false,
+			)
+		);
 
 	}
 

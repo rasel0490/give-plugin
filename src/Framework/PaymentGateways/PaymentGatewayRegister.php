@@ -29,6 +29,20 @@ class PaymentGatewayRegister extends PaymentGatewaysIterator
     }
 
     /**
+     * Get Offsite Gateways
+     *
+     * @since 2.18.0
+     *
+     * @return array
+     */
+    public function getOffsitePaymentGateways()
+    {
+        return array_filter($this->gateways, static function ($gateway) {
+            return in_array(OffsiteGatewayInterface::class, class_implements($gateway), true);
+        });
+    }
+
+    /**
      * Get Gateway
      *
      * @since 2.18.0

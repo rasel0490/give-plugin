@@ -35,6 +35,7 @@ class VerifyEmailRoute implements RestRoute
                     'email' => [
                         'type' => 'string',
                         'required' => true,
+                        'sanitize_callback' => 'sanitize_text_field',
                     ],
                     'g-recaptcha-response' => [
                         'type' => 'string',
@@ -102,6 +103,30 @@ class VerifyEmailRoute implements RestRoute
             }
 
             $failedMessage = esc_html__('Unable to send email. Please try again.', 'give');
+            } else {
+                $failedMessage = esc_html__('Unable to send email. Please try again.', 'give');
+
+                return new WP_REST_Response(
+                    [
+                        'status' => 400,
+                        'response' => 'error',
+                        'body_response' => [
+                            'error' => 'email_failed',
+                            'message' => $failedMessage,
+                        ],
+                    ]
+                );
+            }
+        } else {
+            $value = Give()->email_access->verify_throttle / 60;
+            $spamMessage = (string)apply_filters(
+                'give_email_access_requests_exceed_notice',
+                sprintf(
+                    esc_html__('Email sent. If not received, make sure it is a valid donor email.', 'give'),
+                    sprintf(_n('%s minute', '%s minutes', $value, 'give'), $value)
+                ),
+                $value
+            );
 
             return new WP_REST_Response(
                 [

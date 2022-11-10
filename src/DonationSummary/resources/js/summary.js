@@ -211,6 +211,33 @@ window.GiveDonationSummary = {
             callback(targetNode, $form);
         }
     },
+
+    /**
+     * Helper function to get the formatted amount
+     *
+     * @since 2.17.0
+     *
+     * @param {string/number} amount
+     * @param {jQuery} $form
+     */
+    format_amount: function (amount, $form) {
+        // Normalize amounts to JS number format
+        amount = amount
+            .replace(Give.form.fn.getInfo('thousands_separator', $form), '')
+            .replace(Give.form.fn.getInfo('decimal_separator', $form), '.');
+
+        const currency = Give.form.fn.getInfo('currency_code', $form);
+        const precision = GiveDonationSummaryData.currencyPrecisionLookup[currency];
+
+        // Format with accounting.js, according to the configuration
+        return accounting.formatMoney(amount, {
+            symbol: Give.form.fn.getInfo('currency_symbol', $form),
+            format: 'before' === Give.form.fn.getInfo('currency_position', $form) ? '%s%v' : '%v%s',
+            decimal: Give.form.fn.getInfo('decimal_separator', $form),
+            thousand: Give.form.fn.getInfo('thousands_separator', $form),
+            precision: precision,
+        });
+    },
 };
 
 jQuery(document).on('give:postInit', GiveDonationSummary.init);

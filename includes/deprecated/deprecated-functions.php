@@ -1175,7 +1175,11 @@ function give_get_premium_add_ons() {
  * Displays Stripe Connect Button.
  *
  * @since 2.5.0
+<<<<<<< HEAD
  * @deprecated 2.20.2
+=======
+ * @deprecated @unrelesed
+>>>>>>> old-giv-plugin
  *
  * @return string
  */
@@ -1194,7 +1198,11 @@ function give_stripe_connect_button() {
 			'website_url'           => get_bloginfo( 'url' ),
 			'give_stripe_connected' => '0',
 		],
+<<<<<<< HEAD
 		'https://connect.givewp.com/stripe/connect.php'
+=======
+		esc_url_raw( 'https://connect.givewp.com/stripe/connect.php' )
+>>>>>>> old-giv-plugin
 	);
 
 	return sprintf(

@@ -117,7 +117,12 @@ class Onboarding implements ServiceProvider
     private function registerMigrations()
     {
         give(MigrationsRegister::class)->addMigrations([
+<<<<<<< HEAD
             SetFormDonationLevelsToStrings::class,
         ]);
+=======
+                                                           SetFormDonationLevelsToStrings::class,
+                                                       ]);
+>>>>>>> old-giv-plugin
     }
 }

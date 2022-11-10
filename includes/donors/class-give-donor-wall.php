@@ -255,6 +255,7 @@ class Give_Donor_Wall {
 		// Validate numeric attributes.
 		$numeric_attributes = [
 			'donors_per_page',
+			'form_id',
 			'paged',
 			'comment_length',
 			'avatar_size',

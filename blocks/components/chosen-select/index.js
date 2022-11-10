@@ -53,13 +53,18 @@ class ChosenSelect extends Component {
 	}
 
 	componentDidUpdate() {
+<<<<<<< HEAD
 		const $searchField = jquery( '.chosen-base-control' ).closest( '.chosen-container' ).find( '.chosen-search-input' );
+=======
+		const $searchField = jQuery( '.chosen-base-control' ).closest( '.chosen-container' ).find( '.chosen-search-input' );
+>>>>>>> old-giv-plugin
 		this.$input.search_field.autocomplete( {
 			source: function( request, response ) {
 				const data = {
 					action: 'give_block_donation_form_search_results',
 					search: request.term,
 				};
+<<<<<<< HEAD
                 const chosenBlock = jquery( '.give-block-chosen-select' );
 
 				jquery.post( ajaxurl, data, ( responseData ) => {
@@ -72,6 +77,18 @@ class ChosenSelect extends Component {
 						} ) );
 
 						chosenBlock.trigger( 'chosen:updated' );
+=======
+
+				jQuery.post( ajaxurl, data, ( responseData ) => {
+					jQuery( '.give-block-chosen-select' ).empty();
+					responseData = JSON.parse( responseData );
+
+					if ( responseData.length > 0 ) {
+						response( jQuery.map( responseData, function( item ) {
+							jQuery( '.give-block-chosen-select' ).append( '<option value="' + item.id + '">' + item.name + '</option>' );
+						} ) );
+						jQuery( '.give-block-chosen-select' ).trigger( 'chosen:updated' );
+>>>>>>> old-giv-plugin
 						$searchField.val( request.term );
 					}
 				} );

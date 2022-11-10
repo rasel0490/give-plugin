@@ -11,10 +11,11 @@
 
 // Exit if accessed directly.
 use Give\Helpers\Form\Template\Utils\Frontend as FrontendFormTemplateUtils;
-use Give\Helpers\Form\Utils as FormUtils;
-use Give\Helpers\Frontend\ConfirmDonation;
-use Give\Helpers\Frontend\Shortcode as ShortcodeUtils;
 use Give\Views\IframeView;
+use Give\Helpers\Frontend\Shortcode as ShortcodeUtils;
+use Give\Helpers\Form\Utils as FormUtils;
+use Give\Helpers\Form\Template as FormTemplateUtils;
+use Give\Helpers\Frontend\ConfirmDonation;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -190,6 +191,7 @@ function give_goal_shortcode( $atts ) {
 			'id'        => '',
 			'show_text' => true,
 			'show_bar'  => true,
+			'all_campain_amount'=> false
 		],
 		$atts,
 		'give_goal'

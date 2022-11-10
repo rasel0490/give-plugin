@@ -4,6 +4,7 @@ use Give\Form\Migrations\MoveOptionsToVisualAppearanceSection;
 use Give\Framework\Migrations\Exceptions\DatabaseMigrationException;
 use Give\Log\Migrations\MigrateExistingLogs;
 use Give\MigrationLog\Migrations\CreateMigrationsTable;
+use Give\Log\Migrations\MigrateExistingLogs;
 use Give\Revenue\Migrations\AddPastDonationsToRevenueTable;
 
 /**

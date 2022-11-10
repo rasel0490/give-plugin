@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Give Readme Parser
  *

@@ -1610,6 +1610,7 @@ function give_render_form_theme_setting_panel() {
 
 add_action( 'give_post_form_template_options_settings', 'give_render_form_theme_setting_panel' );
 
+<<<<<<< HEAD
 /**
  * Add Custom setting view for form grid setting panel
  *
@@ -1620,5 +1621,7 @@ function give_render_form_grid_setting_panel() {
 }
 
 add_action( 'give_post_form_grid_options_settings', 'give_render_form_grid_setting_panel' );
+=======
+>>>>>>> old-giv-plugin
 
 
